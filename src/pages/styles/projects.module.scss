@@ -1,0 +1,56 @@
+@use 'src/colors' as colors;
+@use 'src/variables' as variables;
+@use 'src/mixins';
+
+.projects {
+  max-width: variables.$project-list-card-max-width;
+  margin: 24px 15px;
+
+  @media (max-width: variables.$breakpoint-md) {
+    margin: 24px 15px 0 15px;
+    padding-bottom: 24px;
+  }
+}
+
+.createProjectButton {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.projectCardRoot {
+  display: flex;
+  border-radius: variables.$project-list-card-border-radius;
+  height: variables.$project-list-card-height;
+}
+
+.noProjectsPlug {
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed colors.$light-mode-1;
+  color: colors.$light-mode-1;
+  @include mixins.useFont(18px, 27px);
+}
+
+.projectsList {
+  & a:not(:last-child) > div  {
+    margin-bottom: 8px;
+  }
+}
+
+.projectCard {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px;
+  background-color: colors.$white;
+  color: colors.$black;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  @include mixins.useFont(24px, 36px, 500);
+}
+
+.details {
+  @include mixins.useFont(16px, 24px);
+}

@@ -1,0 +1,117 @@
+// 1. Import the initial variables
+
+@import url('https://fonts.googleapis.com/css?family=Abhaya+Libre:800|Poppins:300,400,500,600,700');
+@import '~bulma/sass/utilities/initial-variables';
+
+// 2. Override styles - https://bulma.io/documentation/customize/variables/
+// $primary: red;
+// $fullhd: 2000px;
+
+$black: #000000;
+$modal-content-width: 877px;
+$tabs-link-active-border-bottom-color: #000000;
+$tabs-link-hover-color: #000000;
+$tabs-link-active-color: #000000;
+$tabs-link-hover-border-bottom-color: #000000;
+$tabs-link-padding: 0 16px 9px 16px;
+$tabs-link-color: #828282;
+$tabs-border-bottom-width: 3px;
+$primary: #3c78fb;
+$progress-border-radius: 4px;
+$progress-bar-background-color: #eeeeee;
+$progress-value-background-color: #3c78fb;
+$button-background-color: white;
+$footer-background-color: #1d3557;
+$footer-color: white;
+$footer-padding: 60px 75px;
+$label-color: #828282;
+$label-weight: normal;
+
+// 3. Bulma enable Modularity, which allow you to import what you need
+// https://bulma.io/documentation/overview/modular/
+@import '~bulma/bulma';
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/base/_all';
+// ===== elements
+// @import "~bulma/sass/elements/_all.sass";
+@import '~bulma/sass/elements/button.sass';
+@import '~bulma/sass/elements/container.sass';
+@import '~bulma/sass/elements/icon.sass';
+@import '~bulma/sass/elements/image.sass';
+@import '~bulma/sass/elements/title.sass';
+@import '~bulma/sass/elements/progress.sass';
+// ====== forms
+@import '~bulma/sass/form/_all.sass';
+// ====== components
+// @import "~bulma/sass/components/_all.sass";
+@import '~bulma/sass/components/dropdown.sass';
+@import '~bulma/sass/components/level.sass';
+@import '~bulma/sass/components/menu.sass';
+@import '~bulma/sass/components/navbar.sass';
+@import '~bulma/sass/components/tabs.sass';
+// ====== grid
+// @import "~bulma/sass/grid/_all.sass";
+@import '~bulma/sass/grid/columns.sass';
+// ====== layout
+// @import "~bulma/sass/layout/_all.sass";
+@import '~bulma/sass/layout/section.sass';
+@import '~bulma/sass/layout/footer.sass';
+
+.tabs {
+  ul {
+    font-weight: 400;
+  }
+}
+
+.progress {
+  height: 32px !important;
+  margin-bottom: 8px !important;
+}
+
+.columns {
+  margin: 0px;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+.label {
+  margin-bottom: initial !important;
+}
+
+.input {
+  color: #8093a6;
+  // width: initial;
+}
+
+.modal {
+  position: fixed;
+}
+
+.relative {
+  position: relative;
+}
+
+.defaultButton {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  cursor: pointer;
+  outline: none;
+
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}

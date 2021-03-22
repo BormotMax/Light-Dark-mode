@@ -1,0 +1,45 @@
+@use "src/mixins";
+@use 'src/variables' as variables;
+@import "~bulma/sass/utilities/_all.sass";
+
+.page {
+  background: var(--background-silver);
+  min-height: 100vh;
+  font-family: Poppins, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+
+  .navColumn {
+    margin-bottom: 0;
+  }
+}
+
+.columnWrap {
+  flex-wrap: wrap;
+}
+
+.desktopNav {
+  flex: none;
+  transition: width 0.2s ease-in-out;
+  width: variables.$nav-bar-width;
+}
+
+.navCollapsed {
+  width: variables.$nav-bar-width-collapsed;
+}
+
+.contentColumn {
+  width: 100%;
+  padding: 0;
+}
+
+.heightContainerDesktop {
+  height: 100%;
+}
+
+.heightContainerMobile {
+  min-height: calc(100vh - 80px);
+  height: 100%;
+}

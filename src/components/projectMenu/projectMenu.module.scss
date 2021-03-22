@@ -1,0 +1,8 @@
+@use 'src/colors' as colors;
+
+.tabGroupWrapper {
+  padding: 16px;
+  background: var(--color-block);
+  border-radius: 8px;
+  z-index: 0;
+}

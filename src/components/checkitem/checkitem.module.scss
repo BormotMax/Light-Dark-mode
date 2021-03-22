@@ -1,0 +1,43 @@
+.listItem {
+  .text {
+    margin-left: 9px;
+    color: var(--color-text);
+  }
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  input + .checkboxes {
+    .checked {
+      display: none;
+    }
+  }
+
+  input:checked + .checkboxes {
+    .text {
+      text-decoration-line: line-through;
+    }
+    .checked {
+      display: initial;
+    }
+    .unchecked {
+      display: none;
+    }
+  }
+}
+
+.checkboxes {
+  padding-top: 4px;
+
+  svg {
+    height: 18px;
+    width: 18px !important;
+  }
+}

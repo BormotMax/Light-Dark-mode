@@ -1,0 +1,30 @@
+$header-height: 64px;
+$header-height-mobile: 80px;
+$header-border-bottom-height: 1px;
+$modal-pill-vertical-margin: 4px;
+$nav-bar-width: 276px;
+$nav-bar-width-collapsed: 94px;
+$filter-bar-height: 50px;
+
+$avatar-width: 36px;
+$avatar-right-margin: 8px;
+
+$border-radius: 8px;
+$border-radius-small: 4px;
+
+// breakpoints
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1180px;
+$breakpoint-xxl: 1400px;
+
+// shadows
+$drop-shadow: 4px 4px 24px rgba(0, 0, 0, 0.1);
+$card-shadow: 2px 2px 0px rgba(0, 0, 0, 0.08);
+
+// project list card
+$project-list-card-max-width: 810px;
+$project-list-card-height: 92px;
+$project-list-card-border-radius: 20px;

@@ -1,0 +1,20 @@
+{
+    "CreateAPIKey": 0,
+    "AppSyncApiName": "continuum",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcontinuum23ec4bac",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-continuum-master-224802-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/86d2f7759232dd3795938e5f2808ad4399cf6ca4"
+}

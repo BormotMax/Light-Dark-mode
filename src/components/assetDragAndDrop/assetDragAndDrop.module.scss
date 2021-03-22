@@ -1,0 +1,25 @@
+.assetDragAndDrop {
+  background: var(--color-small-block);
+  border: 1px dashed var(--steel);
+  border-radius: 20px;
+  margin-bottom: 24px;
+  font-family: Poppins;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--steel);
+  text-align: center;
+  padding: 23px 0;
+
+  & * {
+    pointer-events: none;
+  }
+
+  &.dragOver {
+    border: 1px dashed #3c78fb;
+  }
+
+  .text {
+    margin-top: 8px;
+  }
+}

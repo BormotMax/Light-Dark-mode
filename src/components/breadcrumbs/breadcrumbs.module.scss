@@ -1,0 +1,57 @@
+@use "src/mixins";
+@use 'src/colors' as colors;
+@use 'src/variables' as variables;
+
+$line-height: 36px;
+
+.nav {
+  max-width: 50%;
+  margin-left: 40px;
+
+  @media only screen and (max-width: variables.$breakpoint-md) {
+    margin-right: auto;
+  }
+}
+
+.list {
+  text-transform: capitalize;
+  @include mixins.useFont(24px, 36px, 400);
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: $line-height;
+
+  @media only screen and (max-width: variables.$breakpoint-md) {
+    --max-lines: 2;
+    --small-line-height: 21px;
+    --font-size: 14px;
+
+    font-size: var(--font-size);
+    line-height: var(--small-line-height);
+    max-height: calc(var(--small-line-height) * var(--max-lines));
+    white-space: unset;
+  }
+
+  & a {
+    color: var(--color-text);
+  }
+
+  & a.firstPath {
+    color: var(--steel);
+  }
+
+  & li {
+    display: inline;
+    color: var(--color-text);
+  }
+}
+
+.divider {
+  margin: 0 8px;
+  color: var(--steel);
+}
+
+.firstPath {
+  color: var(--steel);
+}

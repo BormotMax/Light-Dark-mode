@@ -1,0 +1,188 @@
+@use 'src/colors' as colors;
+
+.settings {
+  max-width: 668px;
+  width: 100%;
+  background-color: white;
+
+  font-family: Poppins, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #828282;
+  border-radius: 20px;
+
+  label {
+    font-size: 14px;
+  }
+
+  textarea {
+    background: colors.$background-silver;
+    border: 1px solid #eeeeee;
+    resize: none;
+    margin-top: 4px;
+    color: colors.$black;
+  }
+
+  input {
+    background: colors.$background-silver;
+    margin-top: 4px;
+    border: 1px solid #eeeeee;
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: 32px;
+    color: colors.$black;
+  }
+
+  .header {
+    color: colors.$black;
+    font-weight: 500;
+    border-bottom: 1px solid colors.$silver;
+  }
+
+  .body {
+    padding: 0;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 16px;
+      border-right: 1px solid;
+      border-color: #EEEEEE;
+      svg {
+        margin-right: 10px;
+      }
+      .current {
+        color: #ffffff;
+        background: #3c78fb;
+      }
+
+      button {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        min-width: 152px;
+        margin-bottom: 12px;
+      }
+      .buttons_container {
+        width: 100%;
+      }
+    }
+    .right {
+      padding: 16px;
+      color: #000000;
+      font-weight: 300;
+
+      .paymentButton {
+        margin-top: 22px;
+      }
+
+      .profileSettingsWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        height: 100%;
+
+        .avatarContainer {
+          margin-right: 22px;
+        }
+
+        .buttonsBlock {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: flex-start;
+          gap: 8px;
+
+          button {
+            margin-top: 73px;
+
+            @media (max-width: 768px) {
+              margin-top: 12px;
+            }
+          }
+
+        }
+        .saveButton {
+          margin-top: 17px;
+          margin-left: auto;
+          display: flex;
+          align-self: flex-end;
+          align-items: center;
+        }
+
+
+        .inputsContainer {
+          flex-grow: 1;
+
+          .inputWrapper {
+            margin-bottom: 8px;
+
+            .label {
+              font-family: Poppins;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 14px;
+              line-height: 16px;
+              color: colors.$steel;
+            }
+          }
+
+          .textarea {
+            height: 96px;
+            font-family: Poppins;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 16px;
+            color: #595959;
+          }
+        }
+      }
+    }
+  }
+
+  .stripeStatus {
+    border-radius: 4px;
+    letter-spacing: 0.271875px;
+    text-align: center;
+    padding: 2px 10px;
+    display: inline-block;
+    font-family: Poppins;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 22px;
+
+    &.white {
+      color: #828282;
+      border: 2px solid #828282;
+      background: #ffffff;
+    }
+
+    &.green {
+      color: #eeeeee;
+      border: 2px solid #6fcf97;
+      background: #6fcf97;
+    }
+
+    &.red {
+      color: #eeeeee;
+      border: 2px solid rgba(230, 57, 70, 0.8);
+      background: rgba(230, 57, 70, 0.8);
+    }
+
+    &.yellow {
+      color: #828282;
+      border: 2px solid #FDFECA;
+      background: #FDFECA;
+    }
+  }
+}
+
+.buttonResetStyle {
+  outline: 0;
+}
+

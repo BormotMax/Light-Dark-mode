@@ -1,0 +1,80 @@
+@use 'src/mixins';
+@import "~bulma/sass/utilities/_all.sass";
+
+.fileUpload {
+  width: 100%;
+  margin-bottom: 20px;
+
+  .dropArea {
+    position: relative;
+    height: 0;
+    &--square {
+      padding-top: calc(100% - 6px);
+    }
+    &--wide {
+      padding-top: calc(58.2% - 8px);
+    }
+    border: 3px dashed #eeeeee;
+    border-radius: 4px;
+    text-align: center;
+    background: white;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    & * {
+      pointer-events: none;
+    }
+
+    svg {
+      position: absolute;
+      top: calc(50% - 27.5px);
+    }
+
+    img {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      object-fit: cover;
+      object-position: 0 0;
+    }
+  }
+
+  .dragOver {
+    border: 3px dashed #3c78fb !important;
+  }
+
+  .loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.5;
+    border: 3px solid #eeeeee;
+
+    svg {
+      visibility: hidden;
+    }
+
+    &:after {
+      @include mixins.spin-loader;
+      position: absolute;
+      top: calc(50% - 2.5em);
+      left: calc(50% - 2.5em);
+      width: 5em;
+      height: 5em;
+      border-width: 0.25em;
+    }
+  }
+
+  .done {
+    border: 3px solid #eeeeee;
+  }
+
+  .beneathDropArea {
+    text-align: right;
+    white-space: pre-wrap;
+  }
+}

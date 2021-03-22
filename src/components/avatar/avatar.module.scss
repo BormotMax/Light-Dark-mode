@@ -1,0 +1,17 @@
+.avatar {
+  border-radius: 50%;
+  align-self: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  background: #3c78fb;
+  border-color: var(--color-background);
+  color: white;
+  text-align: center;
+}
+
+.loading {
+  opacity: 0;
+}

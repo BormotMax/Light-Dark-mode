@@ -1,0 +1,36 @@
+@use 'src/variables' as variables;
+@use 'src/colors' as colors;
+
+.mobileHeader {
+  display: flex;
+  height: variables.$header-height-mobile;
+  border-bottom: variables.$header-border-bottom-height solid colors.$steel;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 16px;
+  background: #ffffff;
+  font-family: Poppins, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  color: #595959;
+
+  .button {
+    border-radius: 50%;
+    background: #eeeeee;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}

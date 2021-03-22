@@ -1,0 +1,83 @@
+.quoteForComment {
+  border: 1px solid #3c78fb;
+  border-radius: 4px;
+  font-family: Poppins;
+  font-weight: normal;
+  margin-top: 24px;
+
+  .header {
+    font-size: 24px;
+    line-height: 36px;
+    color: #ffffff;
+    background: #3c78fb;
+    border-radius: 4px 4px 0px 0px;
+    padding: 10px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .body {
+    padding: 32px 32px 43px;
+  }
+
+  .task {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 16px;
+    color: #595959;
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin: 0;
+    }
+
+    svg {
+      margin-right: 10px;
+    }
+    display: flex;
+    align-items: center;
+  }
+
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .buttonStyles {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    max-height: 60px;
+  }
+
+  .declineStyles {
+    border: none;
+    background-color: transparent;
+    font-family: Poppins;
+    padding: 0;
+    font-size: 14px;
+    line-height: 21px;
+    color: #3C78FB;
+    margin-top: 15px;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .green {
+    background: #6FCF97 !important;
+    cursor: initial;
+  }
+
+  .red {
+    background: rgba(230, 57, 70, 0.8) !important;
+    cursor: initial;
+  }
+}

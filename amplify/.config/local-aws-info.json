@@ -1,0 +1,7 @@
+{
+  "master": {
+    "configLevel": "project",
+    "useProfile": false,
+    "awsConfigFilePath": "/home/usr01/.amplify/awscloudformation/YYHYSxSU8f"
+  }
+}

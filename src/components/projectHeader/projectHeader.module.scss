@@ -1,0 +1,26 @@
+@import '~bulma/sass/utilities/_all.sass';
+
+.header {
+  display: flex;
+  justify-content: center;
+
+  @include tablet {
+    justify-content: flex-start;
+  }
+
+  svg {
+    vertical-align: bottom;
+  }
+
+  font-family: Poppins;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  color: #595959;
+  padding: 32px;
+  margin: 0 20px;
+
+  @include desktop {
+    margin: 0;
+  }
+}

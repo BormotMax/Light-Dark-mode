@@ -1,0 +1,43 @@
+@mixin header-1-sm {
+  font-family: Poppins, sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 1.61539px;
+  text-transform: uppercase;
+  color: #8093a6;
+}
+
+@mixin useFont(
+  $font-size: 16px,
+  $line-height: 19px,
+  $font-weight: normal,
+  $font-family: Poppins,
+) {
+  font-family: $font-family;
+  font-weight: $font-weight;
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+@mixin spin-loader() {
+  animation: spinAround 500ms infinite linear;
+  border: 2px solid hsl(0, 0%, 86%);
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: block;
+  height: 1em;
+  position: relative;
+  width: 1em;
+
+  @keyframes spinAround {
+    from {
+      transform:rotate(0deg);
+    }
+    to {
+      transform:rotate(360deg);
+    }
+  }
+}

@@ -1,0 +1,1116 @@
+type User @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  name: String
+  title: String
+  company: String
+  email: String
+  avatar: S3Object
+  phone: String
+  address: String
+  taxID: String
+  signedOutAuthToken: String
+  role: UserRole!
+  stripeAccountID: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  hireMeInfo: HireMeInfo @aws_iam @aws_cognito_user_pools
+}
+
+type ProjectClient @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  clientID: ID!
+  projectID: ID!
+  isInitialContact: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  user: User @aws_iam @aws_cognito_user_pools
+}
+
+type ProjectFreelancer @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  createdAt: AWSDateTime!
+  freelancerID: ID!
+  pendingEmail: String
+  projectID: ID!
+  isInitialContact: Boolean
+  updatedAt: AWSDateTime!
+  user: User @aws_iam @aws_cognito_user_pools
+  project: Project @aws_iam @aws_cognito_user_pools
+  notes(filter: ModelNoteFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelNoteConnection @aws_iam @aws_cognito_user_pools
+}
+
+type Project @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  createdAt: AWSDateTime!
+  owner: String!
+  details: String
+  title: String
+  company: String
+  updatedAt: AWSDateTime!
+  clients(filter: ModelProjectClientFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelProjectClientConnection @aws_iam @aws_cognito_user_pools
+  freelancers(filter: ModelProjectFreelancerFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelProjectFreelancerConnection @aws_iam @aws_cognito_user_pools
+  assets(createdAt: ModelStringKeyConditionInput, filter: ModelProjectAssetsFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelProjectAssetsConnection @aws_iam @aws_cognito_user_pools
+  quotes(filter: ModelQuoteFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelQuoteConnection @aws_iam @aws_cognito_user_pools
+  comments(createdAt: ModelStringKeyConditionInput, filter: ModelCommentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelCommentConnection @aws_iam @aws_cognito_user_pools
+}
+
+type ProjectAssets @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  asset: S3Object
+  url: String
+  createdAt: AWSDateTime!
+  projectID: ID!
+  fileName: String
+  updatedAt: AWSDateTime!
+}
+
+type Quote @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  projectID: ID!
+  billableHours: Int
+  chargePerHour: Int
+  totalPrice: Int
+  billingType: QuoteBillingType!
+  status: QuoteStatus
+  statusLastChangedAt: AWSDateTime
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  tasks(filter: ModelTaskFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelTaskConnection @aws_iam @aws_cognito_user_pools
+  payments(filter: ModelQuotePaymentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelQuotePaymentConnection @aws_iam @aws_cognito_user_pools
+}
+
+type Comment @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  createdAt: AWSDateTime!
+  projectID: ID!
+  content: String!
+  creatorID: ID!
+  includedResourceType: CommentResourceType
+  includedResourceID: ID
+  updatedAt: AWSDateTime!
+  creator: User @aws_iam @aws_cognito_user_pools
+}
+
+enum CommentResourceType {
+  QUOTE
+}
+
+type Task @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  quoteID: ID!
+  text: String!
+  completed: Boolean!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type S3Object @aws_iam @aws_cognito_user_pools {
+  key: String!
+  tag: String
+}
+
+type HireMeInfo @aws_iam @aws_cognito_user_pools {
+  freelancerID: ID!
+  buttonText: String
+  blurbText: String
+  aboutText: String
+  twitterUrl: String
+  dribbbleUrl: String
+  instagramUrl: String
+  linkedInUrl: String
+  domainSlugID: ID!
+  bannerImage: S3Object
+  portfolioImages: [S3Object]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  freelancer: User @aws_iam @aws_cognito_user_pools
+  domainSlug: DomainSlug @aws_iam @aws_cognito_user_pools
+}
+
+type DomainSlug @aws_iam @aws_cognito_user_pools {
+  slug: ID!
+  freelancerID: ID!
+  pendingEmail: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  hireMeInfo: HireMeInfo @aws_iam @aws_cognito_user_pools
+}
+
+type Note @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  projectFreelancerID: ID!
+  title: String!
+  content: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type QuotePayment @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  fromUserID: ID!
+  toUserID: ID!
+  quoteID: ID!
+  amount: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum QuoteStatus {
+  IDLE
+  ACCEPTED
+  DECLINE
+}
+
+enum UserRole {
+  FREELANCER
+  CLIENT
+}
+
+enum QuoteBillingType {
+  HOURLY
+  TOTAL
+}
+
+input S3ObjectInput {
+  key: String!
+  tag: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelUserConnection @aws_iam @aws_cognito_user_pools {
+  items: [User]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelUserRoleInput {
+  eq: UserRole
+  ne: UserRole
+}
+
+input ModelUserFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  title: ModelStringInput
+  company: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  address: ModelStringInput
+  taxID: ModelStringInput
+  signedOutAuthToken: ModelStringInput
+  role: ModelUserRoleInput
+  stripeAccountID: ModelStringInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection @aws_iam @aws_cognito_user_pools
+  getUser(id: ID!): User @aws_iam @aws_cognito_user_pools
+  usersByEmail(email: String, sortDirection: ModelSortDirection, filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection @aws_iam @aws_cognito_user_pools
+  searchUsers(filter: SearchableUserFilterInput, sort: SearchableUserSortInput, limit: Int, nextToken: String, from: Int): SearchableUserConnection @aws_iam @aws_cognito_user_pools
+  getProjectClient(id: ID!): ProjectClient @aws_iam @aws_cognito_user_pools
+  listProjectClients(filter: ModelProjectClientFilterInput, limit: Int, nextToken: String): ModelProjectClientConnection @aws_iam @aws_cognito_user_pools
+  getProjectFreelancer(id: ID!): ProjectFreelancer @aws_iam @aws_cognito_user_pools
+  listProjectFreelancers(filter: ModelProjectFreelancerFilterInput, limit: Int, nextToken: String): ModelProjectFreelancerConnection @aws_iam @aws_cognito_user_pools
+  projectsByFreelancer(freelancerID: ID, createdAt: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelProjectFreelancerFilterInput, limit: Int, nextToken: String): ModelProjectFreelancerConnection @aws_iam @aws_cognito_user_pools
+  listProjects(filter: ModelProjectFilterInput, limit: Int, nextToken: String): ModelProjectConnection @aws_iam @aws_cognito_user_pools
+  getProject(id: ID!): Project @aws_iam @aws_cognito_user_pools
+  getProjectAssets(id: ID!): ProjectAssets @aws_iam @aws_cognito_user_pools
+  listProjectAssetss(filter: ModelProjectAssetsFilterInput, limit: Int, nextToken: String): ModelProjectAssetsConnection @aws_iam @aws_cognito_user_pools
+  getQuote(id: ID!): Quote @aws_iam @aws_cognito_user_pools
+  listQuotes(filter: ModelQuoteFilterInput, limit: Int, nextToken: String): ModelQuoteConnection @aws_iam @aws_cognito_user_pools
+  getComment(id: ID!): Comment @aws_iam @aws_cognito_user_pools
+  listComments(filter: ModelCommentFilterInput, limit: Int, nextToken: String): ModelCommentConnection @aws_iam @aws_cognito_user_pools
+  getTask(id: ID!): Task @aws_iam @aws_cognito_user_pools
+  listTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String): ModelTaskConnection @aws_iam @aws_cognito_user_pools
+  listHireMeInfos(freelancerID: ID, filter: ModelHireMeInfoFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelHireMeInfoConnection @aws_iam @aws_cognito_user_pools
+  getHireMeInfo(freelancerID: ID!): HireMeInfo @aws_iam @aws_cognito_user_pools
+  hireInfoByDomainSlug(domainSlugID: ID, sortDirection: ModelSortDirection, filter: ModelHireMeInfoFilterInput, limit: Int, nextToken: String): ModelHireMeInfoConnection @aws_iam @aws_cognito_user_pools
+  listDomainSlugs(slug: ID, filter: ModelDomainSlugFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelDomainSlugConnection @aws_iam @aws_cognito_user_pools
+  getDomainSlug(slug: ID!): DomainSlug @aws_iam @aws_cognito_user_pools
+  getNote(id: ID!): Note @aws_iam @aws_cognito_user_pools
+  listNotes(filter: ModelNoteFilterInput, limit: Int, nextToken: String): ModelNoteConnection @aws_iam @aws_cognito_user_pools
+  getQuotePayment(id: ID!): QuotePayment @aws_iam @aws_cognito_user_pools
+  listQuotePayments(filter: ModelQuotePaymentFilterInput, limit: Int, nextToken: String): ModelQuotePaymentConnection @aws_iam @aws_cognito_user_pools
+}
+
+input CreateUserInput {
+  id: ID
+  name: String
+  title: String
+  company: String
+  email: String
+  avatar: S3ObjectInput
+  phone: String
+  address: String
+  taxID: String
+  signedOutAuthToken: String
+  role: UserRole!
+  stripeAccountID: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+  title: String
+  company: String
+  email: String
+  avatar: S3ObjectInput
+  phone: String
+  address: String
+  taxID: String
+  signedOutAuthToken: String
+  role: UserRole
+  stripeAccountID: String
+}
+
+input DeleteUserInput {
+  id: ID
+}
+
+type Mutation {
+  updateQuotePayment(input: UpdateQuotePaymentInput!, condition: ModelQuotePaymentConditionInput): QuotePayment
+  deleteQuotePayment(input: DeleteQuotePaymentInput!, condition: ModelQuotePaymentConditionInput): QuotePayment
+  createUser(input: CreateUserInput!, condition: ModelUserConditionInput): User @aws_iam @aws_cognito_user_pools
+  updateUser(input: UpdateUserInput!, condition: ModelUserConditionInput): User @aws_iam @aws_cognito_user_pools
+  deleteUser(input: DeleteUserInput!, condition: ModelUserConditionInput): User @aws_iam @aws_cognito_user_pools
+  createProjectClient(input: CreateProjectClientInput!, condition: ModelProjectClientConditionInput): ProjectClient @aws_iam @aws_cognito_user_pools
+  updateProjectClient(input: UpdateProjectClientInput!, condition: ModelProjectClientConditionInput): ProjectClient @aws_iam @aws_cognito_user_pools
+  deleteProjectClient(input: DeleteProjectClientInput!, condition: ModelProjectClientConditionInput): ProjectClient @aws_iam @aws_cognito_user_pools
+  createProjectFreelancer(input: CreateProjectFreelancerInput!, condition: ModelProjectFreelancerConditionInput): ProjectFreelancer @aws_iam @aws_cognito_user_pools
+  updateProjectFreelancer(input: UpdateProjectFreelancerInput!, condition: ModelProjectFreelancerConditionInput): ProjectFreelancer @aws_iam @aws_cognito_user_pools
+  deleteProjectFreelancer(input: DeleteProjectFreelancerInput!, condition: ModelProjectFreelancerConditionInput): ProjectFreelancer @aws_iam @aws_cognito_user_pools
+  createProject(input: CreateProjectInput!, condition: ModelProjectConditionInput): Project @aws_iam @aws_cognito_user_pools
+  updateProject(input: UpdateProjectInput!, condition: ModelProjectConditionInput): Project @aws_iam @aws_cognito_user_pools
+  deleteProject(input: DeleteProjectInput!, condition: ModelProjectConditionInput): Project @aws_iam @aws_cognito_user_pools
+  createProjectAssets(input: CreateProjectAssetsInput!, condition: ModelProjectAssetsConditionInput): ProjectAssets @aws_iam @aws_cognito_user_pools
+  updateProjectAssets(input: UpdateProjectAssetsInput!, condition: ModelProjectAssetsConditionInput): ProjectAssets @aws_iam @aws_cognito_user_pools
+  deleteProjectAssets(input: DeleteProjectAssetsInput!, condition: ModelProjectAssetsConditionInput): ProjectAssets @aws_iam @aws_cognito_user_pools
+  createQuote(input: CreateQuoteInput!, condition: ModelQuoteConditionInput): Quote @aws_iam @aws_cognito_user_pools
+  updateQuote(input: UpdateQuoteInput!, condition: ModelQuoteConditionInput): Quote @aws_iam @aws_cognito_user_pools
+  deleteQuote(input: DeleteQuoteInput!, condition: ModelQuoteConditionInput): Quote @aws_iam @aws_cognito_user_pools
+  createComment(input: CreateCommentInput!, condition: ModelCommentConditionInput): Comment @aws_iam @aws_cognito_user_pools
+  updateComment(input: UpdateCommentInput!, condition: ModelCommentConditionInput): Comment @aws_iam @aws_cognito_user_pools
+  deleteComment(input: DeleteCommentInput!, condition: ModelCommentConditionInput): Comment @aws_iam @aws_cognito_user_pools
+  createTask(input: CreateTaskInput!, condition: ModelTaskConditionInput): Task @aws_iam @aws_cognito_user_pools
+  updateTask(input: UpdateTaskInput!, condition: ModelTaskConditionInput): Task @aws_iam @aws_cognito_user_pools
+  deleteTask(input: DeleteTaskInput!, condition: ModelTaskConditionInput): Task @aws_iam @aws_cognito_user_pools
+  createHireMeInfo(input: CreateHireMeInfoInput!, condition: ModelHireMeInfoConditionInput): HireMeInfo @aws_iam @aws_cognito_user_pools
+  updateHireMeInfo(input: UpdateHireMeInfoInput!, condition: ModelHireMeInfoConditionInput): HireMeInfo @aws_iam @aws_cognito_user_pools
+  deleteHireMeInfo(input: DeleteHireMeInfoInput!, condition: ModelHireMeInfoConditionInput): HireMeInfo @aws_iam @aws_cognito_user_pools
+  createDomainSlug(input: CreateDomainSlugInput!, condition: ModelDomainSlugConditionInput): DomainSlug @aws_iam @aws_cognito_user_pools
+  updateDomainSlug(input: UpdateDomainSlugInput!, condition: ModelDomainSlugConditionInput): DomainSlug @aws_iam @aws_cognito_user_pools
+  deleteDomainSlug(input: DeleteDomainSlugInput!, condition: ModelDomainSlugConditionInput): DomainSlug @aws_iam @aws_cognito_user_pools
+  createNote(input: CreateNoteInput!, condition: ModelNoteConditionInput): Note @aws_iam @aws_cognito_user_pools
+  updateNote(input: UpdateNoteInput!, condition: ModelNoteConditionInput): Note @aws_iam @aws_cognito_user_pools
+  deleteNote(input: DeleteNoteInput!, condition: ModelNoteConditionInput): Note @aws_iam @aws_cognito_user_pools
+  createQuotePayment(input: CreateQuotePaymentInput!, condition: ModelQuotePaymentConditionInput): QuotePayment @aws_iam @aws_cognito_user_pools
+}
+
+input ModelUserConditionInput {
+  name: ModelStringInput
+  title: ModelStringInput
+  company: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  address: ModelStringInput
+  taxID: ModelStringInput
+  signedOutAuthToken: ModelStringInput
+  role: ModelUserRoleInput
+  stripeAccountID: ModelStringInput
+  and: [ModelUserConditionInput]
+  or: [ModelUserConditionInput]
+  not: ModelUserConditionInput
+}
+
+type Subscription {
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"]) @aws_iam @aws_cognito_user_pools
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"]) @aws_iam @aws_cognito_user_pools
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"]) @aws_iam @aws_cognito_user_pools
+  onCreateProjectClient: ProjectClient @aws_subscribe(mutations: ["createProjectClient"]) @aws_iam @aws_cognito_user_pools
+  onUpdateProjectClient: ProjectClient @aws_subscribe(mutations: ["updateProjectClient"]) @aws_iam @aws_cognito_user_pools
+  onDeleteProjectClient: ProjectClient @aws_subscribe(mutations: ["deleteProjectClient"]) @aws_iam @aws_cognito_user_pools
+  onCreateProjectFreelancer: ProjectFreelancer @aws_subscribe(mutations: ["createProjectFreelancer"]) @aws_iam @aws_cognito_user_pools
+  onUpdateProjectFreelancer: ProjectFreelancer @aws_subscribe(mutations: ["updateProjectFreelancer"]) @aws_iam @aws_cognito_user_pools
+  onDeleteProjectFreelancer: ProjectFreelancer @aws_subscribe(mutations: ["deleteProjectFreelancer"]) @aws_iam @aws_cognito_user_pools
+  onCreateProject: Project @aws_subscribe(mutations: ["createProject"]) @aws_iam @aws_cognito_user_pools
+  onUpdateProject: Project @aws_subscribe(mutations: ["updateProject"]) @aws_iam @aws_cognito_user_pools
+  onDeleteProject: Project @aws_subscribe(mutations: ["deleteProject"]) @aws_iam @aws_cognito_user_pools
+  onCreateProjectAssets: ProjectAssets @aws_subscribe(mutations: ["createProjectAssets"]) @aws_iam @aws_cognito_user_pools
+  onUpdateProjectAssets: ProjectAssets @aws_subscribe(mutations: ["updateProjectAssets"]) @aws_iam @aws_cognito_user_pools
+  onDeleteProjectAssets: ProjectAssets @aws_subscribe(mutations: ["deleteProjectAssets"]) @aws_iam @aws_cognito_user_pools
+  onCreateQuote: Quote @aws_subscribe(mutations: ["createQuote"]) @aws_iam @aws_cognito_user_pools
+  onUpdateQuote: Quote @aws_subscribe(mutations: ["updateQuote"]) @aws_iam @aws_cognito_user_pools
+  onDeleteQuote: Quote @aws_subscribe(mutations: ["deleteQuote"]) @aws_iam @aws_cognito_user_pools
+  onCreateComment: Comment @aws_subscribe(mutations: ["createComment"]) @aws_iam @aws_cognito_user_pools
+  onUpdateComment: Comment @aws_subscribe(mutations: ["updateComment"]) @aws_iam @aws_cognito_user_pools
+  onDeleteComment: Comment @aws_subscribe(mutations: ["deleteComment"]) @aws_iam @aws_cognito_user_pools
+  onCreateTask: Task @aws_subscribe(mutations: ["createTask"]) @aws_iam @aws_cognito_user_pools
+  onUpdateTask: Task @aws_subscribe(mutations: ["updateTask"]) @aws_iam @aws_cognito_user_pools
+  onDeleteTask: Task @aws_subscribe(mutations: ["deleteTask"]) @aws_iam @aws_cognito_user_pools
+  onCreateHireMeInfo: HireMeInfo @aws_subscribe(mutations: ["createHireMeInfo"]) @aws_iam @aws_cognito_user_pools
+  onUpdateHireMeInfo: HireMeInfo @aws_subscribe(mutations: ["updateHireMeInfo"]) @aws_iam @aws_cognito_user_pools
+  onDeleteHireMeInfo: HireMeInfo @aws_subscribe(mutations: ["deleteHireMeInfo"]) @aws_iam @aws_cognito_user_pools
+  onCreateDomainSlug: DomainSlug @aws_subscribe(mutations: ["createDomainSlug"]) @aws_iam @aws_cognito_user_pools
+  onUpdateDomainSlug: DomainSlug @aws_subscribe(mutations: ["updateDomainSlug"]) @aws_iam @aws_cognito_user_pools
+  onDeleteDomainSlug: DomainSlug @aws_subscribe(mutations: ["deleteDomainSlug"]) @aws_iam @aws_cognito_user_pools
+  onCreateNote: Note @aws_subscribe(mutations: ["createNote"]) @aws_iam @aws_cognito_user_pools
+  onUpdateNote: Note @aws_subscribe(mutations: ["updateNote"]) @aws_iam @aws_cognito_user_pools
+  onDeleteNote: Note @aws_subscribe(mutations: ["deleteNote"]) @aws_iam @aws_cognito_user_pools
+  onCreateQuotePayment: QuotePayment @aws_subscribe(mutations: ["createQuotePayment"]) @aws_iam @aws_cognito_user_pools
+  onUpdateQuotePayment: QuotePayment @aws_subscribe(mutations: ["updateQuotePayment"]) @aws_iam @aws_cognito_user_pools
+  onDeleteQuotePayment: QuotePayment @aws_subscribe(mutations: ["deleteQuotePayment"]) @aws_iam @aws_cognito_user_pools
+}
+
+type ModelProjectClientConnection @aws_iam @aws_cognito_user_pools {
+  items: [ProjectClient]
+  nextToken: String
+}
+
+input ModelProjectClientFilterInput {
+  id: ModelIDInput
+  clientID: ModelIDInput
+  projectID: ModelIDInput
+  isInitialContact: ModelBooleanInput
+  and: [ModelProjectClientFilterInput]
+  or: [ModelProjectClientFilterInput]
+  not: ModelProjectClientFilterInput
+}
+
+input CreateProjectClientInput {
+  id: ID
+  clientID: ID!
+  projectID: ID!
+  isInitialContact: Boolean
+}
+
+input UpdateProjectClientInput {
+  id: ID!
+  clientID: ID
+  projectID: ID
+  isInitialContact: Boolean
+}
+
+input DeleteProjectClientInput {
+  id: ID
+}
+
+input ModelProjectClientConditionInput {
+  clientID: ModelIDInput
+  projectID: ModelIDInput
+  isInitialContact: ModelBooleanInput
+  and: [ModelProjectClientConditionInput]
+  or: [ModelProjectClientConditionInput]
+  not: ModelProjectClientConditionInput
+}
+
+type ModelProjectFreelancerConnection @aws_iam @aws_cognito_user_pools {
+  items: [ProjectFreelancer]
+  nextToken: String
+}
+
+input ModelProjectFreelancerFilterInput {
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  freelancerID: ModelIDInput
+  pendingEmail: ModelStringInput
+  projectID: ModelIDInput
+  isInitialContact: ModelBooleanInput
+  and: [ModelProjectFreelancerFilterInput]
+  or: [ModelProjectFreelancerFilterInput]
+  not: ModelProjectFreelancerFilterInput
+}
+
+input CreateProjectFreelancerInput {
+  id: ID
+  createdAt: AWSDateTime
+  freelancerID: ID!
+  pendingEmail: String
+  projectID: ID!
+  isInitialContact: Boolean
+}
+
+input UpdateProjectFreelancerInput {
+  id: ID!
+  createdAt: AWSDateTime
+  freelancerID: ID
+  pendingEmail: String
+  projectID: ID
+  isInitialContact: Boolean
+}
+
+input DeleteProjectFreelancerInput {
+  id: ID
+}
+
+input ModelProjectFreelancerConditionInput {
+  createdAt: ModelStringInput
+  freelancerID: ModelIDInput
+  pendingEmail: ModelStringInput
+  projectID: ModelIDInput
+  isInitialContact: ModelBooleanInput
+  and: [ModelProjectFreelancerConditionInput]
+  or: [ModelProjectFreelancerConditionInput]
+  not: ModelProjectFreelancerConditionInput
+}
+
+type ModelProjectConnection @aws_iam @aws_cognito_user_pools {
+  items: [Project]
+  nextToken: String
+}
+
+input ModelProjectFilterInput {
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  owner: ModelStringInput
+  details: ModelStringInput
+  title: ModelStringInput
+  company: ModelStringInput
+  and: [ModelProjectFilterInput]
+  or: [ModelProjectFilterInput]
+  not: ModelProjectFilterInput
+}
+
+input CreateProjectInput {
+  id: ID
+  createdAt: AWSDateTime
+  owner: String!
+  details: String
+  title: String
+  company: String
+}
+
+input UpdateProjectInput {
+  id: ID!
+  createdAt: AWSDateTime
+  owner: String
+  details: String
+  title: String
+  company: String
+}
+
+input DeleteProjectInput {
+  id: ID
+}
+
+input ModelProjectConditionInput {
+  createdAt: ModelStringInput
+  details: ModelStringInput
+  title: ModelStringInput
+  company: ModelStringInput
+  and: [ModelProjectConditionInput]
+  or: [ModelProjectConditionInput]
+  not: ModelProjectConditionInput
+}
+
+type ModelProjectAssetsConnection @aws_iam @aws_cognito_user_pools {
+  items: [ProjectAssets]
+  nextToken: String
+}
+
+input ModelProjectAssetsFilterInput {
+  id: ModelIDInput
+  url: ModelStringInput
+  createdAt: ModelStringInput
+  projectID: ModelIDInput
+  fileName: ModelStringInput
+  and: [ModelProjectAssetsFilterInput]
+  or: [ModelProjectAssetsFilterInput]
+  not: ModelProjectAssetsFilterInput
+}
+
+input CreateProjectAssetsInput {
+  id: ID
+  asset: S3ObjectInput
+  url: String
+  createdAt: AWSDateTime
+  projectID: ID!
+  fileName: String
+}
+
+input UpdateProjectAssetsInput {
+  id: ID!
+  asset: S3ObjectInput
+  url: String
+  createdAt: AWSDateTime
+  projectID: ID
+  fileName: String
+}
+
+input DeleteProjectAssetsInput {
+  id: ID
+}
+
+input ModelProjectAssetsConditionInput {
+  url: ModelStringInput
+  createdAt: ModelStringInput
+  projectID: ModelIDInput
+  fileName: ModelStringInput
+  and: [ModelProjectAssetsConditionInput]
+  or: [ModelProjectAssetsConditionInput]
+  not: ModelProjectAssetsConditionInput
+}
+
+type ModelQuoteConnection @aws_iam @aws_cognito_user_pools {
+  items: [Quote]
+  nextToken: String
+}
+
+input ModelQuoteBillingTypeInput {
+  eq: QuoteBillingType
+  ne: QuoteBillingType
+}
+
+input ModelQuoteStatusInput {
+  eq: QuoteStatus
+  ne: QuoteStatus
+}
+
+input ModelQuoteFilterInput {
+  id: ModelIDInput
+  projectID: ModelIDInput
+  billableHours: ModelIntInput
+  chargePerHour: ModelIntInput
+  totalPrice: ModelIntInput
+  billingType: ModelQuoteBillingTypeInput
+  status: ModelQuoteStatusInput
+  statusLastChangedAt: ModelStringInput
+  and: [ModelQuoteFilterInput]
+  or: [ModelQuoteFilterInput]
+  not: ModelQuoteFilterInput
+}
+
+input CreateQuoteInput {
+  id: ID
+  projectID: ID!
+  billableHours: Int
+  chargePerHour: Int
+  totalPrice: Int
+  billingType: QuoteBillingType!
+  status: QuoteStatus
+  statusLastChangedAt: AWSDateTime
+}
+
+input UpdateQuoteInput {
+  id: ID!
+  projectID: ID
+  billableHours: Int
+  chargePerHour: Int
+  totalPrice: Int
+  billingType: QuoteBillingType
+  status: QuoteStatus
+  statusLastChangedAt: AWSDateTime
+}
+
+input DeleteQuoteInput {
+  id: ID
+}
+
+input ModelQuoteConditionInput {
+  projectID: ModelIDInput
+  billableHours: ModelIntInput
+  chargePerHour: ModelIntInput
+  totalPrice: ModelIntInput
+  billingType: ModelQuoteBillingTypeInput
+  status: ModelQuoteStatusInput
+  statusLastChangedAt: ModelStringInput
+  and: [ModelQuoteConditionInput]
+  or: [ModelQuoteConditionInput]
+  not: ModelQuoteConditionInput
+}
+
+type ModelCommentConnection @aws_iam @aws_cognito_user_pools {
+  items: [Comment]
+  nextToken: String
+}
+
+input ModelCommentResourceTypeInput {
+  eq: CommentResourceType
+  ne: CommentResourceType
+}
+
+input ModelCommentFilterInput {
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  projectID: ModelIDInput
+  content: ModelStringInput
+  creatorID: ModelIDInput
+  includedResourceType: ModelCommentResourceTypeInput
+  includedResourceID: ModelIDInput
+  and: [ModelCommentFilterInput]
+  or: [ModelCommentFilterInput]
+  not: ModelCommentFilterInput
+}
+
+input CreateCommentInput {
+  id: ID
+  createdAt: AWSDateTime
+  projectID: ID!
+  content: String!
+  creatorID: ID!
+  includedResourceType: CommentResourceType
+  includedResourceID: ID
+}
+
+input UpdateCommentInput {
+  id: ID!
+  createdAt: AWSDateTime
+  projectID: ID
+  content: String
+  creatorID: ID
+  includedResourceType: CommentResourceType
+  includedResourceID: ID
+}
+
+input DeleteCommentInput {
+  id: ID
+}
+
+input ModelCommentConditionInput {
+  createdAt: ModelStringInput
+  projectID: ModelIDInput
+  content: ModelStringInput
+  creatorID: ModelIDInput
+  includedResourceType: ModelCommentResourceTypeInput
+  includedResourceID: ModelIDInput
+  and: [ModelCommentConditionInput]
+  or: [ModelCommentConditionInput]
+  not: ModelCommentConditionInput
+}
+
+type ModelTaskConnection @aws_iam @aws_cognito_user_pools {
+  items: [Task]
+  nextToken: String
+}
+
+input ModelTaskFilterInput {
+  id: ModelIDInput
+  quoteID: ModelIDInput
+  text: ModelStringInput
+  completed: ModelBooleanInput
+  and: [ModelTaskFilterInput]
+  or: [ModelTaskFilterInput]
+  not: ModelTaskFilterInput
+}
+
+input CreateTaskInput {
+  id: ID
+  quoteID: ID!
+  text: String!
+  completed: Boolean!
+}
+
+input UpdateTaskInput {
+  id: ID!
+  quoteID: ID
+  text: String
+  completed: Boolean
+}
+
+input DeleteTaskInput {
+  id: ID
+}
+
+input ModelTaskConditionInput {
+  quoteID: ModelIDInput
+  text: ModelStringInput
+  completed: ModelBooleanInput
+  and: [ModelTaskConditionInput]
+  or: [ModelTaskConditionInput]
+  not: ModelTaskConditionInput
+}
+
+type ModelHireMeInfoConnection @aws_iam @aws_cognito_user_pools {
+  items: [HireMeInfo]
+  nextToken: String
+}
+
+input ModelHireMeInfoFilterInput {
+  freelancerID: ModelIDInput
+  buttonText: ModelStringInput
+  blurbText: ModelStringInput
+  aboutText: ModelStringInput
+  twitterUrl: ModelStringInput
+  dribbbleUrl: ModelStringInput
+  instagramUrl: ModelStringInput
+  linkedInUrl: ModelStringInput
+  domainSlugID: ModelIDInput
+  and: [ModelHireMeInfoFilterInput]
+  or: [ModelHireMeInfoFilterInput]
+  not: ModelHireMeInfoFilterInput
+}
+
+input CreateHireMeInfoInput {
+  freelancerID: ID!
+  buttonText: String
+  blurbText: String
+  aboutText: String
+  twitterUrl: String
+  dribbbleUrl: String
+  instagramUrl: String
+  linkedInUrl: String
+  domainSlugID: ID!
+  bannerImage: S3ObjectInput
+  portfolioImages: [S3ObjectInput]
+}
+
+input UpdateHireMeInfoInput {
+  freelancerID: ID!
+  buttonText: String
+  blurbText: String
+  aboutText: String
+  twitterUrl: String
+  dribbbleUrl: String
+  instagramUrl: String
+  linkedInUrl: String
+  domainSlugID: ID
+  bannerImage: S3ObjectInput
+  portfolioImages: [S3ObjectInput]
+}
+
+input DeleteHireMeInfoInput {
+  freelancerID: ID!
+}
+
+input ModelHireMeInfoConditionInput {
+  buttonText: ModelStringInput
+  blurbText: ModelStringInput
+  aboutText: ModelStringInput
+  twitterUrl: ModelStringInput
+  dribbbleUrl: ModelStringInput
+  instagramUrl: ModelStringInput
+  linkedInUrl: ModelStringInput
+  domainSlugID: ModelIDInput
+  and: [ModelHireMeInfoConditionInput]
+  or: [ModelHireMeInfoConditionInput]
+  not: ModelHireMeInfoConditionInput
+}
+
+type ModelDomainSlugConnection @aws_iam @aws_cognito_user_pools {
+  items: [DomainSlug]
+  nextToken: String
+}
+
+input ModelDomainSlugFilterInput {
+  slug: ModelIDInput
+  freelancerID: ModelIDInput
+  pendingEmail: ModelStringInput
+  and: [ModelDomainSlugFilterInput]
+  or: [ModelDomainSlugFilterInput]
+  not: ModelDomainSlugFilterInput
+}
+
+input CreateDomainSlugInput {
+  slug: ID!
+  freelancerID: ID!
+  pendingEmail: String
+}
+
+input UpdateDomainSlugInput {
+  slug: ID!
+  freelancerID: ID
+  pendingEmail: String
+}
+
+input DeleteDomainSlugInput {
+  slug: ID!
+}
+
+input ModelDomainSlugConditionInput {
+  freelancerID: ModelIDInput
+  pendingEmail: ModelStringInput
+  and: [ModelDomainSlugConditionInput]
+  or: [ModelDomainSlugConditionInput]
+  not: ModelDomainSlugConditionInput
+}
+
+type ModelNoteConnection @aws_iam @aws_cognito_user_pools {
+  items: [Note]
+  nextToken: String
+}
+
+input ModelNoteFilterInput {
+  id: ModelIDInput
+  projectFreelancerID: ModelIDInput
+  title: ModelStringInput
+  content: ModelStringInput
+  and: [ModelNoteFilterInput]
+  or: [ModelNoteFilterInput]
+  not: ModelNoteFilterInput
+}
+
+input CreateNoteInput {
+  id: ID
+  projectFreelancerID: ID!
+  title: String!
+  content: String
+}
+
+input UpdateNoteInput {
+  id: ID!
+  projectFreelancerID: ID
+  title: String
+  content: String
+}
+
+input DeleteNoteInput {
+  id: ID
+}
+
+input ModelNoteConditionInput {
+  projectFreelancerID: ModelIDInput
+  title: ModelStringInput
+  content: ModelStringInput
+  and: [ModelNoteConditionInput]
+  or: [ModelNoteConditionInput]
+  not: ModelNoteConditionInput
+}
+
+type ModelQuotePaymentConnection @aws_iam @aws_cognito_user_pools {
+  items: [QuotePayment]
+  nextToken: String
+}
+
+input ModelQuotePaymentFilterInput {
+  fromUserID: ModelIDInput
+  toUserID: ModelIDInput
+  quoteID: ModelIDInput
+  amount: ModelIntInput
+  and: [ModelQuotePaymentFilterInput]
+  or: [ModelQuotePaymentFilterInput]
+  not: ModelQuotePaymentFilterInput
+}
+
+input CreateQuotePaymentInput {
+  id: ID
+  fromUserID: ID!
+  toUserID: ID!
+  quoteID: ID!
+  amount: Int!
+}
+
+input UpdateQuotePaymentInput {
+  fromUserID: ID
+  toUserID: ID
+  quoteID: ID
+  amount: Int
+}
+
+input DeleteQuotePaymentInput {
+  id: ID
+}
+
+input ModelQuotePaymentConditionInput {
+  fromUserID: ModelIDInput
+  toUserID: ModelIDInput
+  quoteID: ModelIDInput
+  amount: ModelIntInput
+  and: [ModelQuotePaymentConditionInput]
+  or: [ModelQuotePaymentConditionInput]
+  not: ModelQuotePaymentConditionInput
+}
+
+input ModelStringKeyConditionInput {
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  between: [String]
+  beginsWith: String
+}
+
+input SearchableStringFilterInput {
+  ne: String
+  gt: String
+  lt: String
+  gte: String
+  lte: String
+  eq: String
+  match: String
+  matchPhrase: String
+  matchPhrasePrefix: String
+  multiMatch: String
+  exists: Boolean
+  wildcard: String
+  regexp: String
+  range: [String]
+}
+
+input SearchableIntFilterInput {
+  ne: Int
+  gt: Int
+  lt: Int
+  gte: Int
+  lte: Int
+  eq: Int
+  range: [Int]
+}
+
+input SearchableFloatFilterInput {
+  ne: Float
+  gt: Float
+  lt: Float
+  gte: Float
+  lte: Float
+  eq: Float
+  range: [Float]
+}
+
+input SearchableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input SearchableIDFilterInput {
+  ne: ID
+  gt: ID
+  lt: ID
+  gte: ID
+  lte: ID
+  eq: ID
+  match: ID
+  matchPhrase: ID
+  matchPhrasePrefix: ID
+  multiMatch: ID
+  exists: Boolean
+  wildcard: ID
+  regexp: ID
+  range: [ID]
+}
+
+input SearchableUserFilterInput {
+  id: SearchableIDFilterInput
+  name: SearchableStringFilterInput
+  title: SearchableStringFilterInput
+  company: SearchableStringFilterInput
+  email: SearchableStringFilterInput
+  phone: SearchableStringFilterInput
+  address: SearchableStringFilterInput
+  taxID: SearchableStringFilterInput
+  signedOutAuthToken: SearchableStringFilterInput
+  stripeAccountID: SearchableStringFilterInput
+  and: [SearchableUserFilterInput]
+  or: [SearchableUserFilterInput]
+  not: SearchableUserFilterInput
+}
+
+enum SearchableSortDirection {
+  asc
+  desc
+}
+
+enum SearchableUserSortableFields {
+  id
+  name
+  title
+  company
+  email
+  phone
+  address
+  taxID
+  signedOutAuthToken
+  stripeAccountID
+}
+
+input SearchableUserSortInput {
+  field: SearchableUserSortableFields
+  direction: SearchableSortDirection
+}
+
+type SearchableUserConnection @aws_iam @aws_cognito_user_pools {
+  items: [User]
+  nextToken: String
+  total: Int
+}

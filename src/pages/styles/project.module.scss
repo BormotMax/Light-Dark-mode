@@ -1,0 +1,43 @@
+@use "src/mixins";
+@use 'src/variables' as variables;
+@import "~bulma/sass/utilities/_all.sass";
+
+.columns {
+  display: flex;
+  padding-top: 16px;
+  margin: 0 15px;
+  padding-bottom: 100px;
+
+  @media (max-width: variables.$breakpoint-xl) {
+    flex-wrap: wrap-reverse;
+  }
+}
+
+.leftColumn {
+  width: 100%;
+  max-width: 802px;
+}
+
+.rightColumn {
+  margin-left: 40px;
+  max-width: 378px;
+
+  @media (max-width: variables.$breakpoint-xl) {
+    margin-left: variables.$avatar-width + variables.$avatar-right-margin;
+    margin-bottom: 24px;
+  }
+}
+
+.alternatePageView {
+  margin: 0;
+  max-width: unset;
+  width: 100%;
+}
+
+.center {
+  justify-content: center;
+
+  @media (max-width: variables.$breakpoint-xl) {
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,447 @@
+// Add global styles here
+@use "src/mixins";
+@use 'src/colors' as colors;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+  line-height: 28px !important;
+  height: 100%;
+
+  --c-gray: #{colors.$c-gray};
+  --fa-gray: #{colors.$fa-gray};
+  --gray-1: #{colors.$gray-1};
+  --gray-3: #{colors.$gray-3};
+  --gray-5: #{colors.$gray-5};
+  --gray-6: #{colors.$gray-6};
+  --steel-blue: #{colors.$steel-blue};
+  --prussian-blue: #{colors.$prussian-blue};
+  --black: #{colors.$black};
+  --dark-blue: #{colors.$dark-blue};
+  --silver: #{colors.$silver};
+  --background-silver: #{colors.$background-silver};
+  --steel: #{colors.$steel};
+  --light-mode-1: #{colors.$light-mode-1};
+  --light-mode-2: #{colors.$light-mode-2};
+  --light-mode-3: #{colors.$light-mode-3};
+  --invalid-red: #{colors.$invalid-red};
+  --white: #{colors.$white};
+  --black: #{colors.$black};
+  --purple: #{colors.$purple};
+
+  --color-block: #{colors.$white};
+  --color-small-block: #{colors.$background-silver};
+  --color-nav: #{colors.$black};
+  --color-hover: #{colors.$black};
+  --color-background: #{colors.$white};
+  --color-text: #{colors.$black};
+  --color-border: #{colors.$black};
+  --color-button: #{colors.$black};
+  --color-progress: #{colors.$steel-blue};
+  --color-line: #{colors.$silver};
+}
+
+.dark {
+  --light-mode-1: #{colors.$dark-mode-1};
+  --light-mode-2: #{colors.$dark-mode-2};
+  --light-mode-3: #{colors.$dark-mode-3};
+  --background-silver: #{colors.$black};
+
+  --color-text: #{colors.$white};
+  --color-background: #{colors.$black};
+  --color-hover: linear-gradient(285.44deg, var(--dark-blue) 4%, var(--purple) 101.17%);
+  --color-nav: #{colors.$steel};
+  --color-block: #{colors.$dark-mode-3};
+  --color-small-block: #{colors.$dark-mode-2};
+  --color-border: #{colors.$dark-mode-1};
+  --color-button: #{colors.$purple};
+  --color-progress: #{colors.$purple};
+  --color-line: #{colors.$dark-mode-1};
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box !important;
+}
+
+img {
+  vertical-align: middle;
+}
+
+img.react-images__view-image.react-images__view-image--isModal.css-1cm5myo.css-1ycyyax {
+  width: 80vh !important;
+  max-height: 80vh !important;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  opacity: 0.5;
+  color: #8093a6;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  opacity: 0.5;
+  color: #8093a6;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  opacity: 0.5;
+  color: #8093a6;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  opacity: 0.5;
+  color: #8093a6;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+li {
+  display: flex;
+}
+
+.li__bullet {
+  padding-right: 17.5px;
+}
+
+.inline-input {
+  &--2 {
+    width: 24px;
+    margin: 0 5px;
+    border: none;
+    border-bottom: 1px solid #3c78fb;
+  }
+  &--4 {
+    width: 34px;
+    margin: 0 5px;
+    border: none;
+    border-bottom: 1px solid #3c78fb;
+  }
+}
+
+// Typography Helpers
+.header-2-lg {
+  font-family: Poppins, sans-serif;
+  line-height: 34px;
+  font-size: 32px;
+  margin: 31px 0;
+  font-weight: normal;
+  color: #1d3557;
+}
+
+.header-2-md {
+  font-family: Poppins, sans-serif;
+  line-height: 28px;
+  font-size: 26px;
+  margin: 18px 0;
+  font-weight: normal;
+  color: #1d3557;
+}
+
+.header-2-sm {
+  font-family: Poppins, sans-serif;
+  line-height: 22px;
+  font-size: 18px;
+  margin: 10px 0;
+  font-weight: normal;
+  color: #1d3557;
+}
+
+.text-2 {
+  font-family: Poppins, sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 28px;
+  color: #1d3557;
+}
+
+.text-slate {
+  font-family: Poppins, sans-serif;
+  color: #8093a6;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.header-1-sm {
+  @include mixins.header-1-sm;
+}
+
+.text-1 {
+  font-family: Poppins, sans-serif;
+  font-weight: normal !important;
+  font-size: 16px;
+  line-height: 33px;
+  letter-spacing: 0.271875px;
+}
+
+.text-blue {
+  color: #3c78fb;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-drkgray {
+  color: #828282;
+}
+
+.text-gray {
+  color: #8093a6;
+}
+
+.text-ltgray {
+  color: #bdbdbd;
+}
+
+.text-xsmall {
+  font-size: 13px;
+  line-height: 17px;
+  letter-spacing: 1.61539px;
+}
+
+.text-normal {
+  font-weight: normal;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-small {
+  font-size: 16px;
+}
+
+.text-small-caps {
+  font-family: Poppins, sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  text-transform: uppercase;
+  line-height: 19px;
+  letter-spacing: 1.61539px;
+}
+
+.strikethrough {
+  text-decoration-line: line-through;
+}
+
+.h1 {
+  font-family: Poppins, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  color: #1d3557;
+}
+
+// Margin helpers
+.mls {
+  margin-left: 8px;
+}
+
+.mlxl {
+  margin-left: 60px;
+}
+
+.mrl {
+  margin-right: 40px;
+}
+
+.mbl {
+  margin-bottom: 40px;
+}
+
+.mbxl {
+  margin-bottom: 60px;
+}
+
+.mtl {
+  margin-top: 40px;
+}
+
+.mbm {
+  margin-bottom: 18px;
+}
+
+.mtxl {
+  margin-top: 60px;
+}
+
+.tal {
+  text-align: left;
+}
+
+.tar {
+  text-align: right;
+}
+
+.vat {
+  vertical-align: top;
+}
+
+// elements
+.input-1 {
+  display: block;
+  width: 100%;
+  padding: 7px 42px 7px 15px;
+  font-family: Poppins, sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 33px;
+  color: #828282;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #828282;
+  margin-bottom: 20px;
+}
+
+.input-light {
+  border: none;
+  font-size: 18px;
+  padding-bottom: 7px;
+  border-bottom: 2px solid #a7b3c1;
+  color: #a7b3c1;
+
+  &:focus {
+    cursor: text;
+    caret-color: #a7b3c1;
+  }
+}
+
+.oval-btn {
+  min-width: 200px;
+  padding: 12px 32px;
+  width: fit-content;
+  background: transparent;
+  border-radius: 25.5px;
+  border: 2px solid #3c78fb;
+  color: #3c78fb;
+  cursor: pointer;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+  line-height: 21px;
+  letter-spacing: 1.61539px;
+  text-transform: uppercase;
+
+  &:hover {
+    color: white;
+    background-color: #3c78fb;
+  }
+}
+
+.btn-large {
+  height: 64px !important;
+  width: 100%;
+  border: none !important;
+  border-radius: 4px !important;
+  background-color: #3c78fb !important;
+  font-weight: 500;
+  font-size: 21px !important;
+  line-height: 25px;
+  letter-spacing: 0.271875px;
+  color: #ffffff !important;
+  cursor: pointer;
+
+  &--inline {
+    width: initial;
+    min-width: 224px;
+  }
+}
+
+.btn-small {
+  color: white;
+  border: 2px solid #3c78fb;
+  border-radius: 4px;
+  letter-spacing: 0.271875px;
+  text-align: center;
+  padding: 2px 30px;
+  background: #3c78fb;
+  font-family: Poppins, sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+
+  &:hover {
+    background: transparent;
+    color: #3c78fb;
+  }
+}
+
+.btn-invert {
+  color: #3c78fb !important;
+  background: transparent;
+
+  &:hover {
+    color: white !important;
+    background: #3c78fb;
+  }
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.flash-message {
+  background: #1d3557;
+  line-height: 30px;
+  font-size: 16px;
+  font-family: Poppins, sans-serif;
+  color: white;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+// other helpers
+.flex {
+  display: flex;
+  &_sb {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+header {
+  .formkit-field,
+  .formkit-submit {
+    margin-bottom: 0 !important;
+  }
+
+  @media (max-width: 768px) {
+    .formkit-field,
+    .formkit-submit {
+      margin-bottom: 8px !important;
+    }
+  }
+}
+
+.fixed-page-header {
+  background-color: white;
+  box-shadow: 0 0 1.8rem rgba(0,0,0,.15);
+  padding: 20px 30px !important;
+
+  @media (max-width: 768px) {
+    padding: 38px 20px 15px !important;
+  }
+}

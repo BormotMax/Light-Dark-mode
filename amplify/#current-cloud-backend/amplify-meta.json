@@ -1,0 +1,134 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-continuum-master-224802-authRole",
+      "UnauthRoleArn": "arn:aws:iam::757622401460:role/amplify-continuum-master-224802-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::757622401460:role/amplify-continuum-master-224802-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-continuum-master-224802-deployment",
+      "UnauthRoleName": "amplify-continuum-master-224802-unauthRole",
+      "StackName": "amplify-continuum-master-224802",
+      "StackId": "arn:aws:cloudformation:us-east-1:757622401460:stack/amplify-continuum-master-224802/4106c490-c403-11ea-953d-0e0e50fbc697",
+      "AmplifyAppId": "d3ck2vgbiuqrmx"
+    }
+  },
+  "function": {
+    "continuum23ec4bacPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [],
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:757622401460:function:continuum23ec4bacPostConfirmation-master",
+        "Name": "continuum23ec4bacPostConfirmation-master",
+        "LambdaExecutionRole": "continuum23ec4bacPostConfirmation-master"
+      },
+      "lastPushTimeStamp": "2021-02-19T11:16:09.067Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-continuum-master-224802-deployment/amplify-cfn-templates/function/continuum23ec4bacPostConfirmation-cloudformation-template.json",
+        "logicalId": "functioncontinuum23ec4bacPostConfirmation"
+      },
+      "lastBuildTimeStamp": "2021-02-12T09:02:03.591Z",
+      "lastPackageTimeStamp": "2021-02-12T09:02:03.787Z",
+      "distZipFilename": "continuum23ec4bacPostConfirmation-4a506f6b5176356f5138-build.zip",
+      "lastPushDirHash": "sjXVllr4r68FNLQUZv9XQ1nSvYM="
+    }
+  },
+  "auth": {
+    "continuum23ec4bac": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "continuum23ec4bacPostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "output": {
+        "AppClientSecret": "uquo1c825je1g5r5g326969a5rt6ami0vjfj8nhtg9iiq1mgkm7",
+        "UserPoolId": "us-east-1_ZVr3K6ZFF",
+        "AppClientIDWeb": "1a3k0fjpht1031pg25h4g0u0ps",
+        "AppClientID": "7cqjucfrab9ivhnu2k1nue92dl",
+        "HostedUIDomain": "continuuma908d34b-a908d34b-master",
+        "IdentityPoolId": "us-east-1:86852660-4a87-4b20-b12e-d74c2962cb9a",
+        "IdentityPoolName": "continuum23ec4bac_identitypool_23ec4bac__master",
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://continuum.works/projects/\",\"http://localhost:3000/projects/\",\"https://community.continuum.works/oauth2/callback/\"],\"LogoutURLs\":[\"https://continuum.works/sign-in/\",\"http://localhost:3000/sign-in/\",\"https://community.continuum.works/\"]}",
+        "UserPoolName": "continuum23ec4bac_userpool_23ec4bac"
+      },
+      "lastPushTimeStamp": "2021-02-19T11:16:09.086Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-continuum-master-224802-deployment/amplify-cfn-templates/auth/continuum23ec4bac-cloudformation-template.yml",
+        "logicalId": "authcontinuum23ec4bac"
+      },
+      "customAuth": false,
+      "lastPushDirHash": "B5MFBdL0/W8V+Zci+Omsq8HkATE="
+    }
+  },
+  "storage": {
+    "imagestore": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "BucketName": "continuumdf9bb4ffaa384fb39761c403a8428d85224802-master",
+        "Region": "us-east-1"
+      },
+      "lastPushTimeStamp": "2021-02-19T11:16:09.070Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-continuum-master-224802-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+        "logicalId": "storageimagestore"
+      }
+    }
+  },
+  "api": {
+    "continuum": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authcontinuum23ec4bac"
+            }
+          }
+        },
+        "GraphQLAPIIdOutput": "vvznszcvpjgy7cgqbtnayenskm",
+        "GraphQLAPIEndpointOutput": "https://ro4gzp4wbjfn7ltg4nyfafqfge.appsync-api.us-east-1.amazonaws.com/graphql"
+      },
+      "lastPushTimeStamp": "2021-02-19T11:16:09.071Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-continuum-master-224802-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apicontinuum"
+      },
+      "lastPushDirHash": "/By6GreE0SW3gFYApnU8lcybxHs="
+    }
+  },
+  "analytics": {
+    "continuum": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "appName": "continuum-master",
+        "Region": "us-east-1",
+        "Id": "3e0bc955ccec4ec9a8f091112a0dad7a"
+      },
+      "lastPushTimeStamp": "2021-02-19T11:16:09.072Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-continuum-master-224802-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "logicalId": "analyticscontinuum"
+      },
+      "lastPushDirHash": "vGQH3UrhCRAVVjaQ97BOahqUwjo="
+    }
+  }
+}

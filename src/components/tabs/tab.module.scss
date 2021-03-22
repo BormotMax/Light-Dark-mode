@@ -1,0 +1,48 @@
+.tabGroup {
+  &:not(:last-child) {
+    margin-bottom: 32px;
+  }
+
+  .tabList {
+    border-bottom-width: 1px;
+    border-color: var(--color-steel);
+    .isActiveTab {
+      a {
+        border-color: var(--color-border);
+        border-bottom-width: 3px;
+        margin-bottom: -1px;
+        color: var(--color-text);
+        
+        svg {
+          color: var(--color-text);
+        }
+      }
+    }
+
+    .tab {
+
+      a {
+
+        margin-bottom: 2px;
+        border-bottom: none;
+
+        &:hover {
+          color: var(--color-text);
+        }
+      }
+
+      &:hover {
+        svg {
+          color: var(--color-text);
+        }
+      }
+    }
+  }
+}
+
+.genericTab {
+  font-weight: normal;
+  font-size: 18px;
+  font-family: Poppins, sans-serif;
+  color: #1d3557;
+}
