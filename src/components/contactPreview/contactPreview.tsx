@@ -364,6 +364,7 @@ const ModalContent: React.FC<ModalContentProps> = ({
 
   const deleteProjectMember = async () => {
     setOpenDeleteModal(false);
+    close();
 
     const deleteUserInput: DeleteProjectClientInput = { id: selectedUser.id };
     try {
@@ -371,7 +372,6 @@ const ModalContent: React.FC<ModalContentProps> = ({
         mutation: gql(deleteProjectClient),
         variables: { input: deleteUserInput },
       });
-      close();
       await refreshUsers();
     } catch (error) {
       logger.error('ContactPreviewModalContent: error deleting User', { error, input: deleteUserInput });
