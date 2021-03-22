@@ -1,7 +1,8 @@
 // Add global styles here
 @use "src/mixins";
 @use 'src/colors' as colors;
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 body {
   line-height: 28px !important;
@@ -38,6 +39,11 @@ body {
   --color-button: #{colors.$black};
   --color-progress: #{colors.$steel-blue};
   --color-line: #{colors.$silver};
+  --color-right-menu: #{colors.$black};
+  --color-comment: #{colors.$steel};
+  --color-quote: #{colors.$black};
+  --color-icon: #{colors.$background-silver};
+  --color-form: #{colors.$white};
 }
 
 .dark {
@@ -56,6 +62,11 @@ body {
   --color-button: #{colors.$purple};
   --color-progress: #{colors.$purple};
   --color-line: #{colors.$dark-mode-1};
+  --color-right-menu: #{colors.$soft-blue};
+  --color-comment: #{colors.$white};
+  --color-quote: #{colors.$silver};
+  --color-icon: #{colors.$dark-mode-1};
+  --color-form: #{colors.$dark-mode-2};
 }
 
 *,
@@ -131,7 +142,7 @@ li {
 
 // Typography Helpers
 .header-2-lg {
-  font-family: Poppins, sans-serif;
+  font-family: Rubik, sans-serif;
   line-height: 34px;
   font-size: 32px;
   margin: 31px 0;
@@ -140,7 +151,7 @@ li {
 }
 
 .header-2-md {
-  font-family: Poppins, sans-serif;
+  font-family: Rubik, sans-serif;
   line-height: 28px;
   font-size: 26px;
   margin: 18px 0;
@@ -149,7 +160,7 @@ li {
 }
 
 .header-2-sm {
-  font-family: Poppins, sans-serif;
+  font-family: Rubik, sans-serif;
   line-height: 22px;
   font-size: 18px;
   margin: 10px 0;
@@ -158,7 +169,7 @@ li {
 }
 
 .text-2 {
-  font-family: Poppins, sans-serif;
+  font-family: Rubik, sans-serif;
   font-weight: 300;
   font-size: 20px;
   line-height: 28px;
@@ -166,7 +177,7 @@ li {
 }
 
 .text-slate {
-  font-family: Poppins, sans-serif;
+  font-family: Rubik, sans-serif;
   color: #8093a6;
   font-size: 20px;
   font-weight: 300;
@@ -177,7 +188,7 @@ li {
 }
 
 .text-1 {
-  font-family: Poppins, sans-serif;
+  font-family: Roboto, sans-serif;
   font-weight: normal !important;
   font-size: 16px;
   line-height: 33px;
@@ -223,7 +234,7 @@ li {
 }
 
 .text-small-caps {
-  font-family: Poppins, sans-serif;
+  font-family: Roboto, sans-serif;
   font-weight: normal;
   font-size: 16px;
   text-transform: uppercase;
@@ -236,7 +247,7 @@ li {
 }
 
 .h1 {
-  font-family: Poppins, sans-serif;
+  font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 36px;
@@ -294,7 +305,7 @@ li {
   display: block;
   width: 100%;
   padding: 7px 42px 7px 15px;
-  font-family: Poppins, sans-serif;
+  font-family: Roboto, sans-serif;
   font-weight: normal;
   font-size: 18px;
   line-height: 33px;
@@ -399,7 +410,7 @@ li {
   background: #1d3557;
   line-height: 30px;
   font-size: 16px;
-  font-family: Poppins, sans-serif;
+  font-family: Roboto, sans-serif;
   color: white;
   text-align: center;
   position: fixed;
